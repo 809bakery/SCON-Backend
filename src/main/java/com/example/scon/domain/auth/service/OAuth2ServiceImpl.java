@@ -349,7 +349,7 @@ public class OAuth2ServiceImpl implements OAuth2Service{
 
     @Override
     public SocialNicknameAndProfileResponse checkSignupNaver(NaverAccountProfileResponse naverAccountProfileResponse, HttpServletResponse response) {
-//        log.info("KakaoAccountProfileResponse.getMail(): {}", NaverAccountProfileResponse.getAccount_email());
+        log.info("KakaoAccountProfileResponse.getMail(): {}", naverAccountProfileResponse.getAccountEmail());
 
         Member member = memberRepository.findByEmail(naverAccountProfileResponse.getAccountEmail()).orElse(null);
 

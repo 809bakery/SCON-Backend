@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class SocialNicknameAndProfileResponse {
 
-    private boolean isExisted;
+    private boolean existed;
 
     private String nickname;
 
