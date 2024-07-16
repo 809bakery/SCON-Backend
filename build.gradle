@@ -33,7 +33,7 @@ dependencies {
 	//implementation 'javax.mail:mail:1.4.7'
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
 	implementation 'mysql:mysql-connector-java:8.0.32'
-
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 
 	// JWT
 	implementation 'com.auth0:java-jwt:4.4.0'

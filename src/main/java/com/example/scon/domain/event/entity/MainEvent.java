@@ -23,9 +23,9 @@ public class MainEvent {
 //    @Column(name = "ovenID", nullable = false)
 //    private int ovenId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ovenId", nullable = false)
-    private Oven oven;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "ovenId", nullable = false)
+//    private Oven oven;
 
     @Column(name = "location", length = 200, nullable = false)
     private String location;
