@@ -5,6 +5,7 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "MainEvent")
@@ -20,41 +21,40 @@ public class MainEvent {
     @Column(name = "ID")
     private Long id;
 
-//    @Column(name = "ovenID", nullable = false)
-//    private int ovenId;
-
 //    @ManyToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name = "ovenId", nullable = false)
 //    private Oven oven;
 
-    @Column(name = "location", length = 200, nullable = false)
+    @Column(name = "LOCATION", length = 200, nullable = false)
     private String location;
 
-    @Column(name = "title", length = 100, nullable = false)
+    @Column(name = "TITLE", length = 100, nullable = false)
     private String title;
 
-    @Column(name = "category", length = 50, nullable = false)
+    @Column(name = "CATEGORY", length = 50, nullable = false)
     private String category;
 
-    @Column(name = "detail", length = 2000, nullable = false)
+    @Column(name = "DETAIL", length = 2000, nullable = false)
     private String detail;
 
-    @Column(name = "poster", length = 300)
+    @Column(name = "POSTER", length = 300)
     private String poster;
 
-    @Column(name = "headCount", columnDefinition = "integer default 0")
+    @Column(name = "HEAD_COUNT", columnDefinition = "integer default 0")
     private Integer headCount;
 
-    @Column(name = "episodeAmount", nullable = false)
+    @Column(name = "EPISODE_AMOUNT", nullable = false)
     private Integer episodeAmount;
 
-    @Column(name = "cost", nullable = false)
+    @Column(name = "COST", nullable = false)
     private Integer cost;
 
-    @Column(name = "runningTime", nullable = false)
+    @Column(name = "RUNNING_TIME", nullable = false)
     private Integer runningTime;
 
-    @Column(name = "createdAt", columnDefinition = "datetime default current_timestamp")
+    @Column(name = "CREATED_AT", columnDefinition = "datetime default current_timestamp")
     private LocalDateTime createdAt;
 
+//    @OneToMany(mappedBy = "mainEvent", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<SubEvent> content;
 }

@@ -34,7 +34,7 @@ public class MainEventRequestDto {
 
     public MainEvent toEntity(){
         return MainEvent.builder()
-//                .oven(oven)
+                //.oven(oven)
                 .location(location)
                 .title(title)
                 .category(category)

@@ -20,13 +20,13 @@ public class SubEvent {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "mainEventId", nullable = false)
+    @JoinColumn(name = "MAIN_EVENT_ID", nullable = false)
     private MainEvent mainEvent;
 
-    @Column(name = "episodeNumber", nullable = false)
+    @Column(name = "EPISODE_NUMBER", nullable = false)
     private Integer episodeNumber;
 
-    @Column(name = "time", nullable = false)
+    @Column(name = "TIME", nullable = false)
     private LocalDateTime time;
 
 }
