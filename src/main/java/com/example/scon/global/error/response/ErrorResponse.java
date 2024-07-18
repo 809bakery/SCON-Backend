@@ -10,7 +10,7 @@ public class ErrorResponse {
     @Schema(description = "에러 메시지")
     private final String message;
 
-    private ErrorResponse(String code, String message) {
+    public ErrorResponse(String code, String message) {
         this.code = code;
         this.message = message;
     }

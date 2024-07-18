@@ -1,5 +1,6 @@
 package com.example.scon.domain.event.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -8,12 +9,13 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "MainEvent")
+@Table(name = "MAIN_EVENT")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @Builder
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class MainEvent {
 
     @Id
@@ -31,8 +33,8 @@ public class MainEvent {
     @Column(name = "TITLE", length = 100, nullable = false)
     private String title;
 
-    @Column(name = "CATEGORY", length = 50, nullable = false)
-    private String category;
+    @Enumerated(EnumType.STRING)
+    private Category category;
 
     @Column(name = "DETAIL", length = 2000, nullable = false)
     private String detail;

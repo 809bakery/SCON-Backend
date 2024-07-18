@@ -2,7 +2,10 @@ package com.example.scon.domain.member.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "MEMBER")
@@ -30,8 +33,18 @@ public class Member {
     @Column(name = "IMAGE")
     private String image; // 프로필 사진
 
+    @Column(name = "PHONE_NUMBER")
+    private String phoneNumber;
+
+    @Column(name = "REPORT_COUNT")
+    private int reportCount; // 신고당한 횟수
+
     @Column(name = "ROLE", nullable = false)
     private Role role;
+
+    @CreatedDate
+    @Column(name = "CREATED_AT",updatable = false)
+    private LocalDateTime createdAt;
 
     @Column(name = "REFRESHTOKEN")
     private String refreshToken;
@@ -47,4 +60,5 @@ public class Member {
     public void destroyRefreshToken(){
         this.refreshToken = null;
     }
+    public void updatePassword(String newPassword){ this.password = newPassword; }
 }

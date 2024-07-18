@@ -1,14 +1,11 @@
 package com.example.scon.domain.member.service;
 
-import com.example.scon.domain.auth.dto.response.GoogleAccountProfileResponse;
-import com.example.scon.domain.auth.dto.response.KakaoAccountProfileResponse;
 import com.example.scon.domain.member.dto.request.SignupRequestDto;
+import com.example.scon.domain.member.dto.request.UpdateMemberNicknameAndProfileImgRequestDto;
 import com.example.scon.domain.member.entity.Member;
 import com.example.scon.domain.member.repository.MemberRepository;
 import com.example.scon.global.error.ErrorCode;
 import com.example.scon.global.error.type.BadRequestException;
-import com.example.scon.global.jwt.service.JwtService;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -49,10 +46,6 @@ public class MemberServiceImpl implements MemberService {
             memberRepository.save(member);
             log.info(member.getRefreshToken());
         }
-
-        // member가 null 이면 회원정보가 존재하지 않는 유효하지 않은 토큰 요청이기에 에러를 발생.
-        // 에러코드 부분은 이후 ErrorCode.class를 생성하여 전역으로 다룰 예정.
-        // 현재는 무조건 유효한 토큰이라는 가정으로 구현함.
     }
 
     @Override
@@ -63,6 +56,60 @@ public class MemberServiceImpl implements MemberService {
             throw new BadRequestException(
                     ErrorCode.USER_NICKNAME_DUPLICATE, "사용중인 닉네임입니다.");
         }
+    }
 
+    @Override
+    public void editNicknameAndProfile(String email, UpdateMemberNicknameAndProfileImgRequestDto dto) {
+        Member member = memberRepository.findByEmail(email).orElse(null);
+
+        if(member != null) {
+            if(dto.getNickname() != null) {
+                member.setNickname(dto.getNickname());
+            }
+            if(dto.getImage() != null) {
+                member.setImage(dto.getImage());
+            }
+            memberRepository.save(member);
+        }
+
+    }
+
+    @Override
+    public void editNickname(String nickname, String email) {
+        Member member = memberRepository.findByEmail(email).orElse(null);
+        if(member != null) {
+            member.setNickname(nickname);
+            memberRepository.save(member);
+        }
+    }
+
+    @Override
+    public void editPassword(String email, String currentPassword, String newPassword) {
+        Member member = validatePwd(email, currentPassword);
+        member.updatePassword(passwordEncoder.encode(newPassword));
+    }
+
+    public Member validatePwd(String email, String currentPassword) {
+        Member member = memberRepository.findByEmail(email)
+                .orElse(null);
+        if (!passwordEncoder.matches(currentPassword, member.getPassword())) {
+            throw new BadRequestException(
+                    ErrorCode.USER_PASSWORD_MISMATCH, "비밀번호가 일치하지 않습니다.");
+        }
+        return member;
+    }
+
+    @Override
+    public void editProfile(String email, String newProfileImg) {
+        Member member = memberRepository.findByEmail(email).orElse(null);
+        member.setImage(newProfileImg);
+        memberRepository.save(member);
+    }
+
+
+    @Override
+    public void deleteUser(String email, String password) {
+        Member member = validatePwd(email, password);
+        memberRepository.delete(member);
     }
 }

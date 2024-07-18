@@ -5,6 +5,8 @@ import com.example.scon.domain.event.repository.SubEventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class SubEventServiceImpl implements SubEventService {
 
@@ -36,5 +38,10 @@ public class SubEventServiceImpl implements SubEventService {
     @Override
     public void deleteSubEventById(long id) {
         subEventRepository.deleteById(id);
+    }
+
+    @Override
+    public List<SubEvent> getSubEventsByMainEventId(long mainEventId) {
+        return subEventRepository.findSubEventByMainEventId(mainEventId);
     }
 }

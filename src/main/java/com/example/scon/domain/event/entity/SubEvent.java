@@ -6,7 +6,7 @@ import lombok.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "SubEvent")
+@Table(name = "SUB_EVENT")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter

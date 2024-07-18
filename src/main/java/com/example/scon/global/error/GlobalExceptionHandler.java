@@ -3,11 +3,15 @@ package com.example.scon.global.error;
 import com.example.scon.global.error.response.ErrorResponse;
 import com.example.scon.global.error.response.ExceptionResponse;
 import com.example.scon.global.error.type.*;
+import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import java.util.Map;
 
 @RestControllerAdvice(basePackages = {
         "com.example.scon.domain.auth.controller",
@@ -58,4 +62,21 @@ public class GlobalExceptionHandler {
         log.error("Error: ", e);
         return createErrorResponse(ErrorCode.SYSTEM_ERROR);
     }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<String> handleConstraintViolationException(ConstraintViolationException e) {
+        log.error("Error: ", e);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ErrorResponse> handleValidationException(MethodArgumentNotValidException e) {
+        // 유효성 검사 에러 메시지 가져오기
+        String errorMessage = e.getBindingResult().getFieldError().getDefaultMessage();
+
+        // ErrorResponse 객체를 생성하여 ResponseEntity로 반환
+        ErrorResponse errorResponse = new ErrorResponse("VALIDATION_ERROR", errorMessage);
+        return ResponseEntity.badRequest().body(errorResponse);
+    }
+
 }

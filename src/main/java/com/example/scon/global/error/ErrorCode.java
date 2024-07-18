@@ -9,6 +9,8 @@ public enum ErrorCode {
     SYSTEM_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "SYSTEM000", "서비스에 장애가 발생했습니다."),
     BAD_REQUEST_ERROR(HttpStatus.BAD_REQUEST, "SYSTEM001", "유효하지 않은 요청입니다."),
 
+    EMAIL_CODE_MISMATCH(HttpStatus.BAD_REQUEST, "EMAIL000", "메일 인증코드가 일치하지 않습니다."),
+
     USER_NICKNAME_DUPLICATE(HttpStatus.BAD_REQUEST, "USER000", "사용중인 닉네임입니다."),
     USER_NICKNAME_INVALID(HttpStatus.BAD_REQUEST, "USER001", "닉네임은 2~8자로만 설정 가능합니다."),
 

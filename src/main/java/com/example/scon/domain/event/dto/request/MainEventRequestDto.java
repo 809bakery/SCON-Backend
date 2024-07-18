@@ -1,5 +1,6 @@
 package com.example.scon.domain.event.dto.request;
 
+import com.example.scon.domain.event.entity.Category;
 import com.example.scon.domain.event.entity.MainEvent;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,7 +17,7 @@ public class MainEventRequestDto {
 
     private String title;
 
-    private String category;
+    private Category category;
 
     private String detail;
 
